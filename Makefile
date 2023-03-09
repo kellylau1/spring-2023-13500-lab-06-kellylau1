@@ -1,16 +1,29 @@
-main: main.o funcs.o
-	g++ -o main main.o funcs.o
+CXXFLAGS +=-std=c++11
 
-tests: tests.o funcs.o
-	g++ -o tests tests.o funcs.o
+main: main.o caesar.o vigenere.o decrypt.o
+	g++ -o main main.o caesar.o vigenere.o decrypt.o
 
+tests: tests.o caesar.o vigenere.o decrypt.o 
+	g++ -o tests tests.o caesar.o vigenere.o decrypt.o 
 
+test-ascii: test-ascii.cpp test-ascii.h
+	g++ -g -o test-ascii test-ascii.cpp 
+	
+main.o: main.cpp test-ascii.h caesar.h vigenere.h decrypt.h 
 
-funcs.o: funcs.cpp funcs.h
+tests.o: tests.cpp doctest.h caesar.h vigenere.h decrypt.h 
 
-main.o: main.cpp funcs.h
+test-ascii: test-ascii.cpp test-ascii.h
+	g++ -g -o test-ascii test-ascii.cpp 
 
-tests.o: tests.cpp doctest.h funcs.h
+caesar.o: caesar.cpp caesar.h 
+	g++ -g -c caesar.cpps
 
+vigenere.o: vigenere.cpp vigenere.h 
+	g++ -g -c vigenere.cpp
+
+decrypt.o: decrypt.cpp decrypt.h 
+	g++ -g -c decrypt.cpp
 clean:
-	rm -f main.o funcs.o tests.o
+	rm -f main.o tests.o caesar.o vigenere.o decrypt.o
+
