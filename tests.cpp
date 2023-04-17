@@ -33,6 +33,26 @@ TEST_CASE("decryptVigenere") {
   CHECK(decryptVigenere("FYYRD IU NVZI", "cheetah") == "DRUNK IN LOVE");
 }
 
+TEST_CASE("letter frequency") {
+  CHECK(letter_frequency("o", "ooooo") == 100);
+  CHECK(letter_frequency("o", "ow") == 50);
+  CHECK(letter_frequency('a', "Aopz pz qbza h alza.") == doctest::Approx(0.2));
+}
+
+TEST_CASE("distance vectors ") {
+  std::vector<double> vec = {1, 2, 3};
+  std::vector<double> vec1 = {1, 2};
+  CHECK(distance(vec, vec1) == 0.0);
+  CHECK(distance(vec1, vec) == -1.0);
+}
+
+TEST_CASE("solve") {
+  CHECK(solve(encryptCaesar("I love cats and dogs", 5)) == "I love cats and dogs");    
+  CHECK(solve(encryptCaesar("I love cats from the moon and back", 10)) == "I love cats from the moon and back");
+}
+
+
+
 
 
 
